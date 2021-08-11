@@ -6,6 +6,7 @@ import discord
 from discord.ext import commands, tasks
 
 from cogs.sql.sql_conn import cur, mydb
+from etc.custom_handler import custom_error
 
 
 class Roler(commands.Cog):
@@ -64,8 +65,12 @@ class Roler(commands.Cog):
 
     @commands.command(aliases=['rmc'])
     async def rm_cycle(self, ctx, arg):
+        if arg < 1:
+            await ctx.send(custom_error(rm_cycle))
+
         if not arg.isdigit():
-            await ctx.channel.send('Das Argument muss eine Zahl sein und darf kein Buchstaben inhalten!')
+            if not ',' in arg:
+                await ctx.channel.send('Das Argument muss eine Zahl sein und darf kein Buchstaben inhalten!')
             return
         try:
             # cur.execute(f"DELETE FROM discord_db WHERE id = '{arg}'")
