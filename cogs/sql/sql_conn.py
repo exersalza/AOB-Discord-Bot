@@ -39,7 +39,7 @@ except Exception as error:
         AUTO_INCREMENT=0
         """)
 
-        cur.execute("INSERT INTO discord_db (scroll_txt) VALUE ('Waddup B*tch!')")
+        cur.execute("INSERT INTO discord_db (id, scroll_txt) VALUE (0, 'Waddup B*tch!')")
         cur.commit()
     else:
         raise Exception
