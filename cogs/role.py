@@ -76,7 +76,6 @@ class Roler(commands.Cog):
 
             await ctx.channel.send(f'Die ActivityBar hat sich geupdated!. `{arg}` wurde gelöscht!')
         except Exception:
-            raise Exception
             await ctx.channel.send(f'Die Aktion hat leider nicht geklappt :)')
             pass
 
@@ -96,7 +95,7 @@ class Roler(commands.Cog):
         if message.author.bot:
             return
 
-        if not '!' in message.content and 'noice' in message.content:
+        if not '!' in message.content and 'noice' in str(message.content).lower():
             with open('noice.json', 'r', encoding='utf-8') as f:
                 noice = json.load(f)
 
