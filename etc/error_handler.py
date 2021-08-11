@@ -3,7 +3,9 @@ from discord import Embed
 
 async def invalid_argument(self, ctx, command):
     commands = {"rm_cycle": "<ID> or <ID, ID...>",
-                "rmc": "<ID> or <ID, ID...>"}
+                "rmc": "<ID> or <ID, ID...>",
+                "add_cycle": "<NAME>",
+                "adc": "<NAME>"}
 
     embed = Embed(title="Ungültige Parameter",
                   description=f"Die Werte die du an den Command `!{command}` übergeben hast sind ungültig.",

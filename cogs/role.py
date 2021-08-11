@@ -61,6 +61,7 @@ class Roler(commands.Cog):
     @commands.command(aliases=['shc'])
     async def show_cycle(self, ctx):
         cur.execute('SELECT * FROM discord_db')
+
         await ctx.channel.send(cur.fetchall())
 
     @commands.command(aliases=['rmc'])
@@ -70,14 +71,13 @@ class Roler(commands.Cog):
             return
         elif not arg.isdigit():
             if not ',' in arg:
-                await ctx.channel.send('Das Argument muss eine Zahl sein und darf kein Buchstaben inhalten!')
+                await invalid_argument(self, ctx, "rm_cycle")
             return
         try:
             # cur.execute(f"DELETE FROM discord_db WHERE id = '{arg}'")
             # mydb.commit()
 
             cur.execute(f"SELECT * FROM discord_db WHERE id = '{arg}'")
-            bar = cur.fetchone()[1]
 
             await ctx.channel.send(f'Die ActivityBar hat sich geupdated!. `{arg}` wurde gelöscht!')
         except Exception:
