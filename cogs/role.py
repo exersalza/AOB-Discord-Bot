@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands, tasks
 
 from cogs.sql.sql_conn import cur, mydb
-from etc.custom_handler import custom_error
+from etc.error_handler import invalid_argument
 
 
 class Roler(commands.Cog):
@@ -35,7 +35,7 @@ class Roler(commands.Cog):
 
     @commands.command(aliases=['h'])
     async def help(self, ctx):
-        embed = discord.Embed(title='Help Site', description='<> Ist ein Plicht feld',color=0xCD5D7D)
+        embed = discord.Embed(title='Help Site', description='<> Ist ein Plicht feld', color=0xCD5D7D)
         embed.add_field(name=f'!add_cycle <arg> or !adc', value='Fügt ein Objekt für die ActivityBar hinzu!', inline=False)
         embed.add_field(name=f'!show_cycle or !shc', value='Zeigt dir die Objekte in der ActivityBar an!', inline=False)
         embed.add_field(name=f'!rm_cycle <id> or !rmc', value='Löscht ein Objekt aus der ActivityBar', inline=False)
@@ -64,11 +64,11 @@ class Roler(commands.Cog):
         await ctx.channel.send(cur.fetchall())
 
     @commands.command(aliases=['rmc'])
-    async def rm_cycle(self, ctx, arg):
-        if arg < 1:
-            await ctx.send(custom_error(rm_cycle))
-
-        if not arg.isdigit():
+    async def rm_cycle(self, ctx, arg=''):
+        if arg == '':
+            await invalid_argument(self, ctx, "rm_cycle")
+            return
+        elif not arg.isdigit():
             if not ',' in arg:
                 await ctx.channel.send('Das Argument muss eine Zahl sein und darf kein Buchstaben inhalten!')
             return
