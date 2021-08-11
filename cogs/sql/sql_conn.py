@@ -28,13 +28,19 @@ except Exception as error:
         cur = mydb.cursor()
 
         cur.execute("""
-            CREATE TABLE `discord_db` (
-                `scroll_txt` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci'
-            )
-            COMMENT='Das ist die MainDB für den Discord Bot!'
-            COLLATE='utf8mb4_general_ci'
-            ENGINE=InnoDB
+        CREATE TABLE `discord_db` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `scroll_txt` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+            PRIMARY KEY (`id`) USING BTREE
+        )
+        COMMENT='Das ist die main DB für den Discord Bot!'
+        COLLATE='utf8mb4_general_ci'
+        ENGINE=InnoDB
+        AUTO_INCREMENT=0
         """)
+
+        cur.execute("INSERT INTO discord_db (scroll_txt) VALUE ('Waddup B*tch!')")
+        cur.commit()
     else:
         raise Exception
 

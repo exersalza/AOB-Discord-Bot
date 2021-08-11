@@ -13,12 +13,12 @@ class Roler(commands.Cog):
         self.bot = bot
 
         cur.execute('SELECT * FROM discord_db')
-        foo = []
+        self.foo = []
 
         for i in cur.fetchall():
-            foo.append(i[1])
+            self.foo.append(i[1])
 
-        self.status = cycle(foo)
+        self.status = cycle(self.foo)
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -50,6 +50,8 @@ class Roler(commands.Cog):
             cur.execute(f"INSERT INTO discord_db (scroll_txt) VALUE ('{str(arg)}')")
             mydb.commit()
 
+            self.foo.append(arg)
+
             await ctx.channel.send(f'Die ActivityBar hat sich geupdated!. `{arg}` ist nun in der Auswahl!')
         except Exception:
             await ctx.channel.send(f'Die Aktion hat leider nicht geklappt :)')
@@ -66,11 +68,15 @@ class Roler(commands.Cog):
             await ctx.channel.send('Das Argument muss eine Zahl sein und darf kein Buchstaben inhalten!')
             return
         try:
-            cur.execute(f"DELETE FROM discord_db WHERE id = '{arg}'")
-            mydb.commit()
+            # cur.execute(f"DELETE FROM discord_db WHERE id = '{arg}'")
+            # mydb.commit()
+
+            cur.execute(f"SELECT * FROM discord_db WHERE id = '{arg}'")
+            bar = cur.fetchone()[1]
 
             await ctx.channel.send(f'Die ActivityBar hat sich geupdated!. `{arg}` wurde gelöscht!')
         except Exception:
+            raise Exception
             await ctx.channel.send(f'Die Aktion hat leider nicht geklappt :)')
             pass
 
