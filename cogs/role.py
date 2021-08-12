@@ -5,9 +5,12 @@ from itertools import cycle
 import discord
 from discord.ext import commands, tasks
 
-from cogs.sql.sql_conn import cur, mydb
+from sql.sql_conn import cur, mydb
 from etc.error_handler import invalid_argument
 
+
+#todo:
+# Permission check
 
 class Roler(commands.Cog):
     def __init__(self, bot):
@@ -35,7 +38,7 @@ class Roler(commands.Cog):
 
     @commands.command(aliases=['h'])
     async def help(self, ctx):
-        embed = discord.Embed(title='Help Site', description='<> Ist ein Plicht feld', color=0xCD5D7D)
+        embed = discord.Embed(title='Help Site', description='<> Ist ein Pflicht feld', color=0xCD5D7D)
         embed.add_field(name=f'!add_cycle <arg> or !adc', value='Fügt ein Objekt für die ActivityBar hinzu!', inline=False)
         embed.add_field(name=f'!show_cycle or !shc', value='Zeigt dir die Objekte in der ActivityBar an!', inline=False)
         embed.add_field(name=f'!rm_cycle <id> or !rmc', value='Löscht ein Objekt aus der ActivityBar', inline=False)
