@@ -21,7 +21,13 @@ except Exception as error:
 
 
 def create_table(arg):
-    if arg.lower() == 'main':
+    """
+    :param arg:
+    :return:
+
+    SQL Create table if not exists
+    """
+    if arg.lower() == 'main':  # Main Table Creator -> discord_db
         cur = mydb.cursor()
 
         cur.execute("""

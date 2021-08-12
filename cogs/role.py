@@ -38,6 +38,12 @@ class Roler(commands.Cog):
 
     @commands.command(aliases=['h'])
     async def help(self, ctx):
+        """
+        :param ctx:
+        :return:
+
+        Help Command
+        """
         embed = discord.Embed(title='Help Site', description='<> Ist ein Pflicht feld', color=0xCD5D7D)
         embed.add_field(name=f'!add_cycle <arg> or !adc', value='Fügt ein Objekt für die ActivityBar hinzu!', inline=False)
         embed.add_field(name=f'!show_cycle or !shc', value='Zeigt dir die Objekte in der ActivityBar an!', inline=False)
@@ -50,6 +56,13 @@ class Roler(commands.Cog):
 
     @commands.command(aliases=['adc'])
     async def add_cycle(self, ctx, *, arg):
+        """
+        :param ctx:
+        :param arg:
+        :return:
+
+        ActivityBar Cycle function -> !add_cycle / !adc
+        """
         try:
             cur.execute(f"INSERT INTO discord_db (scroll_txt) VALUE ('{str(arg)}')")
             mydb.commit()
@@ -57,18 +70,31 @@ class Roler(commands.Cog):
             self.foo.append(arg)
 
             await ctx.channel.send(f'Die ActivityBar hat sich geupdated!. `{arg}` ist nun in der Auswahl!')
-        except Exception:
+        except Exception:   # Exception for SQL Errors
             await ctx.channel.send(f'Die Aktion hat leider nicht geklappt :)')
             pass
 
     @commands.command(aliases=['shc'])
     async def show_cycle(self, ctx):
+        """
+        :param ctx:
+        :return:
+
+        ActivityBar CMS -> !show_cycle / !shc
+        """
         cur.execute('SELECT * FROM discord_db')
 
         await ctx.channel.send(cur.fetchall())
 
     @commands.command(aliases=['rmc'])
     async def rm_cycle(self, ctx, arg=''):
+        """
+        :param ctx:
+        :param arg:
+        :return:
+
+        ActivityBar CMS -> !rm_cycle / !rmc
+        """
         if arg == '':
             await invalid_argument(self, ctx, "rm_cycle")
             return
@@ -89,10 +115,22 @@ class Roler(commands.Cog):
 
     @commands.command()
     async def roler(self, ctx):
+        """
+        :param ctx:
+        :return:
+
+        Just an fun command
+        """
         await ctx.send(f'{ctx.message.author.mention} Just got an Roler Submariner')
 
     @commands.command()
     async def noice(self, ctx):
+        """
+        :param ctx:
+        :return:
+
+        Another fun command
+        """
         with open('noice.json', 'r', encoding='utf-8') as f:
             noice = json.load(f)
 
@@ -100,6 +138,13 @@ class Roler(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        """
+        :param message:
+        :return:
+
+        Message Control area -> Noice, whoami command
+        """
+
         if message.author.bot:
             return
 
